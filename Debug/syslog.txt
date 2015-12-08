@@ -1,0 +1,4 @@
+Date: June 30, 2010      ttTime: 18:08:21             c:\MyProjects\Holoprog\Debug\syslog.txt
+
+Date: June 30, 2010      ttTime: 18:08:50             c:\MyProjects\Holoprog\Debug\syslog.txt
+Execution time: 0 minutes 29 seconds

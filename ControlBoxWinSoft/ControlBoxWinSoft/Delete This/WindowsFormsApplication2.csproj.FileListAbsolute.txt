@@ -1,0 +1,10 @@
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\Form1.resources
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication2.csproj.GenerateResource.Cache
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication2.pdb
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\WindowsFormsApplication2.pdb
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\WindowsFormsApplication2.dll.config
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication2.dll
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\WindowsFormsApplication2.dll
+C:\MyProjects\WindowsFormsApplication1\WindowsFormsApplication1\WindowsFormsApplication2.tlb

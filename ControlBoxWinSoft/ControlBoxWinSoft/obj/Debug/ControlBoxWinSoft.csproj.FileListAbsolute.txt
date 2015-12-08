@@ -1,0 +1,10 @@
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\obj\Debug\ResolveAssemblyReference.cache
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\obj\Debug\ControlBoxWinSoft.Form1.resources
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\obj\Debug\ControlBoxWinSoft.Properties.Resources.resources
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\obj\Debug\ControlBoxWinSoft.csproj.GenerateResource.Cache
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\ControlBoxWinSoft.dll.config
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\obj\Debug\ControlBoxWinSoft.dll
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\obj\Debug\ControlBoxWinSoft.pdb
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\ControlBoxWinSoft.dll
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\ControlBoxWinSoft.pdb
+C:\MyProjects\HoloProg\ControlBoxWinSoft\ControlBoxWinSoft\ControlBoxWinSoft.tlb

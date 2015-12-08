@@ -1,0 +1,46 @@
+
+PIdiv180              = M_PI / 180;
+glRefBeamTilt_A4      = 60.0;
+glLightCoordsD_C4     = 150.0;
+glLightCoordsOmega_D4 = 60.0;
+glHologSizeX_H4       = (NoofCols  - 1) * HorzDistanceBetweenPixelCenters;//must be cms
+glHologSizeY_I4       = (NoofLines - 1) * VertDistanceBetweenPixelCenters;//must be cms
+
+//Compute Position of Light:
+glXl_E4 = (glHologSizeX_H4 / 2) + glLightCoordsD_C4 * sin(glLightCoordsOmega_D4 * PIdiv180);
+glYl_F4 = glHologSizeY_I4 / 2;
+glZl_G4 = glLightCoordsD_C4 * cos(glLightCoordsOmega_D4 * PI_div180);
+
+//The above calculations need to be done only once per Motor Position Generation
+
+long double ldblArrayOfVertGonioAngles[MAXROWS][MAXCOLS];
+for (row = 0; row < hologHeight; row++){
+   PixelVpositionInCms = VertDistanceBetweenPixelCenters * row;
+   for (col = 0; col < hologWidth; col++){
+      PixelHpositionInCms = HorzDistanceBetweenPixelCenters * col;
+      ldblArrayOfVertGonioAngles[row][col] = GetWyInDegreesFromSpreadSheet(PixelHpositionInCms, PixelVpositionInCms);
+     }
+  }
+
+
+long double GetWyInDegreesFromSpreadSheet(long double CellB7, long double CellC7){
+ long double CellD7,CellE7,CellF7,CellG7,CellH7,CellI7,CellJ7,CellK7,CellL7,CellM7,CellN7,CellO7,CellP7,CellQ7;
+
+ CellD7 = sqrt((glXl_E4 - dblHpositionInCms_B7) * (glXl_E4 - dblHpositionInCms_B7) 
+             + (glYl_F4 - dblVpositionInCms_C7) * (glYl_F4 - dblVpositionInCms_C7)
+             + (glZl_G4 * glZl_G4) );
+ CellE7 = PIdiv180 * acos(glZl_G4 / CellD7);
+ CellF7 = (glYl_F4 - CellC7) / CellD7 / sin(CellE7 * PIdiv180);
+ CellG7 = (glXl_E4 - CellB7) / CellD7 / sin(CellE7 * PIdiv180);
+ CellH7 = PIdiv180 * atan2(CellF7/CellG7);
+ CellI7 = (glXl_E4 - CellB7) / CellD7;
+ CellJ7 = (glYl_F4 - CellC7) / CellD7;
+ CellK7 =  glZl_G4 / CellD7;
+ CellL7 = PIdiv180 * acos(CellI7 * sin(glRefBeamTilt_A4 * PIdiv180) + CellK7 * cos(glRefBeamTilt_A4 * PIdiv180) );
+ CellM7 = CellJ7 / sin(CellL7 * PIdiv180);
+ CellN7 = (CellI7 - cos(CellL7 * PIdiv180) * sin(glRefBeamTilt_A4 * PIdiv180)) / (sin(CellL7 * PIdiv180) * cos(glRefBeamTilt_A4 * PIdiv180));
+ CellO7 = PIdiv180 * atan2(CellM7,CellN7);
+ CellP7 = tan(CellL7 * PIdiv180) * CellN7;
+ CellQ7 = tan(CellL7 * PIdiv180) * CellM7;
+ return PIdiv180 * atan(CellQ7);    //This is column S   
+}

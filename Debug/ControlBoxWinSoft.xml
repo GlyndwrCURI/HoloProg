@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<profile>
+  <section name="AppConfig">
+    <entry name="CurrentConfigName">DefaultConfig</entry>
+  </section>
+  <section name="DefaultConfig">
+    <entry name="ComPort">COM16</entry>
+    <entry name="PixelFrequency">42333</entry>
+    <entry name="PixelDivideRatio">63</entry>
+    <entry name="LineStartDelay">10</entry>
+    <entry name="LineStartWidth">100000</entry>
+    <entry name="PixelWidth">100000</entry>
+    <entry name="PixelDelay">10</entry>
+    <entry name="RedLaserDelay">1000</entry>
+    <entry name="GreenLaserDelay">1000</entry>
+    <entry name="BlueLaserDelay">1000</entry>
+    <entry name="LaserPulseWidth">1000</entry>
+    <entry name="PrintLineLength">137</entry>
+    <entry name="PrintTotalLines">6</entry>
+    <entry name="PrintShutterStartPixel">43</entry>
+    <entry name="PrintShutterStopPixel">93</entry>
+    <entry name="PrintShutterRedStartLine">0</entry>
+    <entry name="PrintShutterRedStopLine">4</entry>
+    <entry name="PrintColorOffset">1</entry>
+    <entry name="AutoTrigger">500</entry>
+    <entry name="GetStatusUpdate">300</entry>
+    <entry name="NumberOfLines">5</entry>
+    <entry name="DelayMs">1000</entry>
+    <entry name="LcosTriggerSource">0</entry>
+  </section>
+  <section name="50x50+margins">
+    <entry name="ComPort">COM16</entry>
+    <entry name="PixelFrequency">42333</entry>
+    <entry name="PixelDivideRatio">63</entry>
+    <entry name="LineStartDelay">10</entry>
+    <entry name="LineStartWidth">100000</entry>
+    <entry name="PixelWidth">100000</entry>
+    <entry name="PixelDelay">10</entry>
+    <entry name="RedLaserDelay">1000</entry>
+    <entry name="GreenLaserDelay">1000</entry>
+    <entry name="BlueLaserDelay">1000</entry>
+    <entry name="LaserPulseWidth">1000</entry>
+    <entry name="PrintLineLength">250</entry>
+    <entry name="PrintTotalLines">52</entry>
+    <entry name="PrintShutterStartPixel">51</entry>
+    <entry name="PrintShutterStopPixel">101</entry>
+    <entry name="PrintShutterRedStartLine">1</entry>
+    <entry name="PrintShutterRedStopLine">49</entry>
+    <entry name="PrintColorOffset">1</entry>
+    <entry name="AutoTrigger">500</entry>
+    <entry name="GetStatusUpdate">300</entry>
+    <entry name="NumberOfLines">5</entry>
+    <entry name="DelayMs">100</entry>
+    <entry name="LcosTriggerSource">0</entry>
+  </section>
+</profile>

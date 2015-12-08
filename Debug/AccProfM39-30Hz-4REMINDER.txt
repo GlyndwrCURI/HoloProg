@@ -1,0 +1,211 @@
+Firstly, For the Xaxis (M39) the numbers in its acceleration files have a slightly
+different meaning... Here the numbers refer to the SPEED the motor must be moving
+at when it gets to the end of the pixel-period. In the case of the first number in
+the file (say 8) the motor will travel 4 steps during the period (accelerating all
+the time) but end up moving at 8 steps/pixel.  This contrasts with the other motors,
+where the speed still ends up at 8, but 8 steps will have been moved (in other words,
+the motor is assumed [for these other motors] to have gone instantly to 8 steps/pixel
+right from the start).
+
+As a consequence of the above, for the M39 PRN file (only), the numbers in the file
+must all be EVEN (Holoprog enforces this). If this restriction was not made, the
+motor would be unable to move a whole number of uSteps during a pixel-period.
+(consider if the the speed the motor must be moving at when it gets to the end of
+the first pixel-period is 9... if constant acceleration is required the motor would
+have to move 4 1/2 uSteps).  Keeping track of the motor position if it moves
+fractions of a uStep would require additional processing time and effort, so it is
+better to restrict AccProfM39-xHz-y.PRN to even numbers.
+
+Example:
+
+ AccProf *** PRN *** files look like this:
+   (Note 8 char fixed lengh + cr/lf, not 6 chars)
+
+       8
+      16
+      24
+      32
+      38
+      44
+     128
+     172
+     256
+     384
+     512
+     640
+     768
+     896
+    1024
+    1152
+    1280
+
+and they are used by Holoprog's profile generating function to create whole lines of 
+movement i.e. M39XYStageX.csv (or csb). Note that the MPOS file will end up with 
+these figures (RH column is not actually created):
+         
+     0           
+     4         8 
+    12        16 
+    20        24 
+    28        32 
+    35        38 
+    41        44 
+    86       128 
+   150       172 
+   214       256 
+   320       384 
+   448       512 
+   576       640 
+   704       768 
+   832       896 
+   948     [1024 max it could be]
+  1000           
+  1000           
+  1000           
+or (if backlash is specified as zero):
+     4         8 
+    12        16 
+    20        24 
+    28        32 
+    35        38 
+    41        44
+    86       128 
+   150       172 
+   214       256 
+   320       384 
+   448       512 
+   576       640 
+   704       768 
+   832       896 
+   948     [1024 max it could be]
+  1000           
+  1000           
+  1000           
+which contains the number of steps to move in that pixel period. AVRs have to 
+work out the acceleration by remembering the starting speed for a pixel, then
+doubling the difference between 'the number of steps to move' and that starting
+speed.  (The RH column isn't really present... it's just a reminder here to show
+what the final speed is. Note the Last acceleration is where we move 948 
+steps - This leaves us at 1000 steps/period because our starting speed was 896 and
+to travel 948 pixels implies acceleration is 104 (steps/pix-period^2).
+
+If the printer config contains a positive backlash figure (when the motor position
+data is generated) a leading and trailing zero is added to the profile to allow 
+it to be shifted left by up to one pixel's-worth of steps, but this adjustment
+is made by the AVRs. The trailing zero is probably totally redundent as play is
+always taken up at the beginning of the movement (by adding the backlash steps at 
+the end of the acceleration - immediately before the prePIXzeroCONSTspeedPIXELs).
+To maintain accurate timing (when the backlash steps are likely to take just a
+small fraction of a pixel-period) the whole profile is shifted into this first
+'leading zero' pixel-period, but the start of the 'leading zero' pixel-period 
+needs to be a delay (a series of non-pulsing interrupts) equal to that period-
+length,less however long the backlash steps will take.
+
+
+Note that the sum of the number of steps in M39XYStageX.csv (or csb) is no longer
+equal to the number of steps that the printer will actually move (if backlash is
+specified) because the backlash steps will be added by AVR. Also, you cannot see
+what the backlash setting is for M39 (for a particular, generated hologram) by 
+looking at it's CSB or CSV file, but the information is recorded in its HCF
+file (in the copy of the PCFrec it contains). The current printer configuration 
+backlash setting is always viewable in the printer config screen, and you can get
+to see a particular generated hologram's backlash setting by trying to print it -
+having changed the current printer configuration's backlash setting to something
+obscure. This works because the HCF's-PCFrecCopy is compared to the current
+configuration whenever you print, and differences are reported.  Note I have 
+updated the "Comparison  of the HCF Config with the Current Printer Configuration"
+screen, to include Amber warnings when the printer configuraton changes. (& while
+I was at it, I addded coloured Key fields).
+
+
+Remember,  The AccProf *** CSV *** files look like this:
+
+                Mon Oct 12 15:13:35 2009
+ACCELERATION PROFILE          4editing1n
+Lines:    1   HAPs:  10    LeadIn:     0
+Pixel Frequency                       30
+     1
+   100
+     2
+     4
+     5
+
+
+
+and they are used both by the FAST MOVE and the HOMING profile generation functions. 
+In the case of HOMING, the maximum speed to accelerate up to is limited by the
+number of increases specified "two spaces after HAPs:" 
+In the case of FAST MOVES, SimplerConvertJPMessageDataToTClargeSDarray() is used by
+the AVRs (and doesn't currently generate 'Smooth' accelerations).
+
+You must be careful when creating the CSV for M39, because it is easy to forget (or
+not fully appreciate) the critical difference between specifying the end speed when
+constant acceleration will be applied, and specifying the speed when that is simply
+the number of steps to move that pixel at a constant speed. Take this M39 CSV 
+acceleration profile for example:
+    10
+    10
+    10
+    10
+    10
+This does not give a smooth constant speed... it produces an oscillation between
+0 to 20, then 20 to 0, 0 to 20 etc. [steps per pixel].
+     5
+    10
+    10
+    10
+    10
+produces a good acceleration (during the first pixel), followed by constant speed.
+This does the same:
+     2
+     7
+    10
+    10
+    10
+
+
+There are a few reasons for having different numbers in the AccProf CSV/CSB files
+compared to the PRN files.  Sometimes you might want to tweak the numbers (e g.
+you could round off the acceleration when approaching a predetermined speed for
+a particular hologram - by adjusting the PRN file). 
+Also the PRN AccProf file WILL BENEFIT from having a reduced acceleration for the
+first pixel or two, to assist when the motor will be changing direction half way
+through a line. THIS DOES NOT APPLY TO M39 PRN (or any other motor that does not
+change direction part-way though printing a line).
+You may also decide, in the case for M40, for example, that you want the motor to
+go to a particularly high speed during FAST MOVES, perhaps to move from one end 
+of the axis to the other, & the CSV file can be modified to accomodate this.
+It may also be good idea to have a reduced CSV/CSB file on the M39 X-axis to 
+minimize mechanical stress.... Neither FAST MOVES or HOMING really require fast
+accelerations, so the speed difference between one pixel and the next may be kept
+small (with the acceleration being allowed to continue longer [especially for the
+non-homing, out-of-HAPS part of the profile]).
+
+
+
+
+
+
+Not particularly related to the above, but when a backlash is specified,
+shifting the whole profile left by a few micro or milli seconds makes it quite
+difficult to determine (mathematically) exactly how many Usteps should have taken
+place at each transition of the pixel signal - especially as the motor may 
+undergo up to 100 different rates of acceleration during the acceleration period.
+It is, however, a requirement that the expected motor position is known (otherwise
+there is no way to correct it once the acual position is found at run-time).
+The problem has been overcome by maintaining running totals of U32AccumulatedTime
+and U32AccumulatedSteps during the calculation and, whenever a timer count is
+stored in the large SDRAM TC array AVR looks to see if a pixel transition is expected
+to have occured (by running the following code):
+
+if(U32AccumulatedTime > NextWholePixelClockTime){
+  lExpectedPixPOSITIONsRowInRAM[sRoundThePixelClock - 2] = U32AccumulatedSteps;
+  NextWholePixelClockTime = (int)(dbTotalCounterCycles4Period * sRoundThePixelClock++);
+ }
+
+This is a very effective and simple way to populate the lExpectedPixPOSITIONsRowInRAM
+table during complex accelerations, and certainly it solved the problem. It would,
+however, be better to do the calculation just once per print and possibly just once
+per hologram generation. The above code is also present during the calculation of all
+the constant speed steps, which is not very efficient.
+

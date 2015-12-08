@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<profile>
+  <section name="AppConfig">
+    <entry name="CurrentConfigName">DefaultConfig</entry>
+  </section>
+  <section name="DefaultConfig">
+    <entry name="ComPort">COM14</entry>
+    <entry name="PixelFrequency">83333</entry>
+    <entry name="PixelDivideRatio">63</entry>
+    <entry name="LineStartDelay">10</entry>
+    <entry name="LineStartWidth">100000</entry>
+    <entry name="PixelWidth">100000</entry>
+    <entry name="PixelDelay">10</entry>
+    <entry name="RedLaserDelay">1000</entry>
+    <entry name="GreenLaserDelay">1000</entry>
+    <entry name="BlueLaserDelay">1000</entry>
+    <entry name="LaserPulseWidth">1000</entry>
+    <entry name="PrintLineLength">50</entry>
+    <entry name="PrintTotalLines">10</entry>
+    <entry name="PrintShutterStartPixel">10</entry>
+    <entry name="PrintShutterStopPixel">40</entry>
+    <entry name="PrintShutterRedStartLine">2</entry>
+    <entry name="PrintShutterRedStopLine">8</entry>
+    <entry name="PrintColorOffset">1</entry>
+    <entry name="AutoTrigger">400</entry>
+    <entry name="GetStatusUpdate">100</entry>
+    <entry name="NumberOfLines">5</entry>
+    <entry name="DelayMs">100</entry>
+    <entry name="LcosTriggerSource">0</entry>
+  </section>
+</profile>

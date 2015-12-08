@@ -1,0 +1,39 @@
+[Configuration file for Holoprog to create additional, static, arp-entries for Display PC, Switch, etc. ]
+[**** DO NOT amend records with square brackets, but DO amend the records without square brackets. **** ]
+[To find the INTERFACE INDEXes to use below (for each Network Card) type 'arp -a' at the command prompt.]
+[(You may have to type 'arp -s' first, and add a dummy entry for each card, before 'arp -a' displays    ]
+[ the interfaces indexes).  Example output from 'arp -a' is Interface: 192.168.0.200 --- 0x10003  etc.  ]
+[The interface's index will look like 0x10003 but you must add leading zeros because 8 chars are needed-]
+[after the '0x'   Note that you must specify both network card's interface indexes.                     ]
+[When you add or remove IPaddress<>MACaddress records, state how many records there are (in the         ]
+[2-character, fixed-length, 'Records To Follow field'). This field must be in the range 00 to 40 because]
+[Holoprog can add up to 40 static entries per network card (in addition to the 40 AVR addresses it will ]
+[generate automatically.  The Control PC, Switch, Display PC, etc. should all have fixed IP addresses.  ]
+[Finally, the default records below are examples to show how the records should look:-PLEASE AMEND THEM!]
+[First Interface Index]
+0x00010003
+[Should Holoprog Automatically Generate entries for the AVRs on the First Interface (Y/N) for Yes / No  ]
+N
+[Records To Follow]
+09
+192.168.100.199 00-1d-7d-05-8c-f2
+192.168.100.001 00-13-d4-02-ef-74
+192.168.100.201 00-1d-7d-07-b5-f2
+192.168.100.253 00-14-22-57-bb-b9
+192.168.100.255 ff-ff-ff-ff-ff-ff
+224.000.000.022 01-00-5e-00-00-16
+224.000.000.252 01-00-5e-00-00-fc
+239.255.255.250 01-00-5e-7f-ff-fa
+255.255.255.255 ff-ff-ff-ff-ff-ff
+[END OF FIRST INTERFACE]
+[Second Interface Index]
+0x00010003
+[Should Holoprog Automatically Generate entries for the AVRs on the Second Interface (1:yes, 0:no)      ]
+Y
+[Records To Follow]
+04
+192.168.000.255 ff-ff-ff-ff-ff-ff
+224.000.000.022 01-00-5e-00-00-16
+224.000.000.252 01-00-5e-00-00-fc
+239.255.255.250 01-00-5e-7f-ff-fa
+[END OF SECOND INTERFACE]
